@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/player_background_4" >
+
+    <!-- Player Header -->
+
+    <LinearLayout
+        android:id="@+id/player_header_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_header"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+
+        <!-- Song Title -->
+
+        <TextView
+            android:id="@+id/songTitle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:paddingLeft="10sp"
+            android:text="@string/start_text"
+            android:textColor="#04b3d2"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Playlist button -->
+
+        <ImageButton
+            android:id="@+id/btnQR"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:contentDescription="Goes to the scan page"
+            android:src="@drawable/btn_qr" />
+    </LinearLayout>
+
+    <!-- Song Thumbnail Image -->
+
+    <LinearLayout
+        android:id="@+id/songThumbnail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/player_header_bg"
+        android:layout_marginTop="42dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="wrapper"
+            android:src="@drawable/adele" />
+    </LinearLayout>
+
+</RelativeLayout>
