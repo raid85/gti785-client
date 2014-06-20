@@ -16,6 +16,7 @@ import android.os.Build;
 public class MainActivity extends ActionBarActivity {
 	
 	private ImageButton btnQR;
+	private ImageButton btnServersList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +36,29 @@ public class MainActivity extends ActionBarActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		btnQR = (ImageButton) findViewById(R.id.btnQR);
+		btnServersList = (ImageButton) findViewById(R.id.btnServer);
 		
 		/**
-		 * Button Click event for Play list click event
-		 * Launches list activity which displays list of songs
+		 * Button 
 		 * */
 		btnQR.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {				
-				Intent serverList  = new Intent(getApplicationContext(), ImageTextListBaseAdapterActivity.class);
+			
+			//TO DO
+			}
+		});
+		
+		/**
+		 * Button Click event for SERVERS list click event
+		 * Launches list activity which displays list of SERVERS
+		 * */
+		btnServersList.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {				
+				Intent serverList  = new Intent(getApplicationContext(), ServersActivity.class);
 				startActivityForResult(serverList,0);
 
 			}

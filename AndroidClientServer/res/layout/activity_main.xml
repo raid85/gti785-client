@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/player_background_4" >
+    android:background="@drawable/player_background_6" >
 
     <!-- Player Header -->
 
@@ -43,21 +43,21 @@
     <!-- Song Thumbnail Image -->
 
     <LinearLayout
-        android:id="@+id/songThumbnail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/player_header_bg"
-        android:layout_marginTop="42dp"
         android:gravity="center"
         android:paddingBottom="10dp"
         android:paddingTop="10dp" >
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/btnServer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="wrapper"
-            android:src="@drawable/adele" />
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:contentDescription="Goes to the scan page"
+            android:src="@drawable/btn_server" />
     </LinearLayout>
 
 </RelativeLayout>
