@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,30 +35,31 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 	private ImageButton btnQR;
 	private ImageButton btnRefresh;
 
-	public static final String[] titles = new String[] { "Strawberry",
-		"Banana", "Orange", "Mixed" };
+	private ListView listView;
+	private List<RowItem> rowItems;
+
+	public static final String[] titles = new String[] { "Serveur Terra",
+		"Serveur Nostra", "Serveur Banshee", "Serveur Zeta" };
 
 	public static final String[] descriptions = new String[] {
-		"It is an aggregate accessory fruit",
-		"It is the largest herbaceous flowering plant", "Citrus Fruit",
-	"Mixed Fruits" };
+		"IP:185.156.22.125:8781",
+		"IP:185.156.22.126:8783", "IP:185.156.22.127:8788",
+	"IP:Unconfirmed:8X8X" };
 
 	public static final Integer[] images = { R.drawable.android60x60,
 		R.drawable.android60x60, R.drawable.android60x60, R.drawable.android60x60 };
-	
 
-	ListView listView;
-	List<RowItem> rowItems;
+
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_servers);
-		
+
 		btnQR = (ImageButton) findViewById(R.id.btnQR);
 		btnRefresh = (ImageButton) findViewById(R.id.btnRefresh);
-		
+
 		/**
 		 *bUTTON CLICK EVENt for starting camera
 		 * */
@@ -69,7 +72,7 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 
 			}
 		});
-		
+
 		/**
 		 *REFRESH List Button
 		 * */
@@ -77,23 +80,26 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 
 			@Override
 			public void onClick(View arg0) {				
-				 Toast toast = Toast.makeText(getApplicationContext(),
-			                "This will force List Update",
-			                Toast.LENGTH_SHORT);
-			        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-			        toast.show();
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"This will force List Update",
+						Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+				toast.show();
 
 			}
 		});
-		
+
+
+		//------------LA LISTE DES SERVEURS----------//
 		rowItems = new ArrayList<RowItem>();
-		for (int i = 0; i < titles.length; i++) {
+		for (int i = 0; i < 4; i++) {
 			RowItem item = new RowItem(images[i], titles[i], descriptions[i]);
 			rowItems.add(item);
+			//Log.d("WOOOONALD", rowItems.get(i).getTitle());
 		}
 
-		
-		listView = (ListView) findViewById(R.id.serversList);
+
+		listView = (ListView) findViewById(R.id.list);
 		CustomBaseAdapter adapter = new CustomBaseAdapter(this, rowItems);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
@@ -103,12 +109,12 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		 Toast toast = Toast.makeText(getApplicationContext(),
-	                "Item " + (position + 1) + ": " + rowItems.get(position),
-	                Toast.LENGTH_SHORT);
-	        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-	        toast.show();
-		
+		Toast toast = Toast.makeText(getApplicationContext(),
+				"Item " + (position + 1) + ": " + rowItems.get(position),
+				Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.show();
+
 
 	}
 

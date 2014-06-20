@@ -62,7 +62,7 @@
         android:paddingTop="10dp" >
 
         <ListView
-            android:id="@+id/serversList"
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="214dp" >
         </ListView>
