@@ -15,13 +15,13 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp" >
 
-        <!-- Song Title -->
+        <!-- Top Title -->
 
         <TextView
             android:id="@+id/songTitle"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:paddingLeft="10sp"
             android:text="@string/start_text"
@@ -32,32 +32,77 @@
         <!-- Playlist button -->
 
         <ImageButton
-            android:id="@+id/btnQR"
+            android:id="@+id/btnSettings"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:background="@null"
-            android:contentDescription="Goes to the scan page"
-            android:src="@drawable/btn_qr" />
+            android:contentDescription="Goes to the settings page"
+            android:src="@drawable/btn_playlist" />
     </LinearLayout>
 
     <!-- Song Thumbnail Image -->
 
     <LinearLayout
+        android:id="@+id/wrapperServerList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/player_header_bg"
         android:gravity="center"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" >
+        android:paddingBottom="1dp"
+        android:paddingTop="1dp" >
 
         <ImageButton
             android:id="@+id/btnServer"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="124dp"
+            android:layout_height="147dp"
+            android:layout_weight="0.11"
             android:background="@null"
             android:contentDescription="Goes to the scan page"
             android:src="@drawable/btn_server" />
+
     </LinearLayout>
+    
+        <LinearLayout
+            android:id="@+id/wrapperFile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/wrapperServerList"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <ImageButton
+                android:id="@+id/btnFile"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.82"
+                android:background="@null"
+                android:contentDescription="Goes to the server files"
+                android:src="@drawable/btn_file" />
+        </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wrapperServerTransfer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/wrapperFile"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <ImageButton
+                        android:id="@+id/btnServerTransfer"
+                        android:layout_width="228dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="0.82"
+                        android:background="@null"
+                        android:contentDescription="Goes to the server files"
+                        android:src="@drawable/btn_servertransfer" />
+                </LinearLayout>
 
 </RelativeLayout>

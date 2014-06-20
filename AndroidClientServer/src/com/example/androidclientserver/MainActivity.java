@@ -5,18 +5,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 	
-	private ImageButton btnQR;
+	private ImageButton btnSettings;
 	private ImageButton btnServersList;
+	private ImageButton btnFile;
+	private ImageButton btnServerTransfer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +39,23 @@ public class MainActivity extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-		btnQR = (ImageButton) findViewById(R.id.btnQR);
+		btnSettings = (ImageButton) findViewById(R.id.btnSettings);
 		btnServersList = (ImageButton) findViewById(R.id.btnServer);
+		btnFile = (ImageButton) findViewById(R.id.btnFile);
+		btnServerTransfer = (ImageButton) findViewById(R.id.btnServerTransfer);
 		
 		/**
 		 * Button 
 		 * */
-		btnQR.setOnClickListener(new View.OnClickListener() {
+		btnSettings.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {				
-			
-			//TO DO
+				 Toast toast = Toast.makeText(getApplicationContext(),
+			                "Settings Coming Soon",
+			                Toast.LENGTH_SHORT);
+			        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+			        toast.show();
 			}
 		});
 		
@@ -60,6 +69,38 @@ public class MainActivity extends ActionBarActivity {
 			public void onClick(View arg0) {				
 				Intent serverList  = new Intent(getApplicationContext(), ServersActivity.class);
 				startActivityForResult(serverList,0);
+
+			}
+		});
+		
+		/**
+		 * Button Click event for FileViewer
+		 * */
+		btnFile.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {				
+				 Toast toast = Toast.makeText(getApplicationContext(),
+			                "FileViewer Coming Soon",
+			                Toast.LENGTH_SHORT);
+			        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+			        toast.show();
+
+			}
+		});
+		
+		/**
+		 * Button Click event for Server Transfers
+		 * */
+		btnServerTransfer.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {				
+				 Toast toast = Toast.makeText(getApplicationContext(),
+			                "Server Transfers Coming Soon",
+			                Toast.LENGTH_SHORT);
+			        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+			        toast.show();
 
 			}
 		});
