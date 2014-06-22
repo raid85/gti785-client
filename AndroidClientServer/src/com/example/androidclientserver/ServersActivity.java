@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.google.zxing.client.android.CaptureActivity;
+
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -68,7 +70,16 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 			@Override
 			public void onClick(View arg0) {				
 
-				dispatchTakePictureIntent();
+				//dispatchTakePictureIntent();
+				Intent intent = new Intent(getApplicationContext(),CaptureActivity.class);
+				intent.setAction("com.google.zxing.client.android.SCAN");
+
+				//				Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+				//				intent.setPackage("com.example.androidclientserver");
+				// this stops saving ur barcode in barcode scanner app's history
+				intent.putExtra("SAVE_HISTORY", false);
+				startActivityForResult(intent, 0);
+
 
 			}
 		});
@@ -141,6 +152,7 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 			}
 		}
 
+
 	}
 
 	@Override
@@ -148,8 +160,16 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 			setPic();
+		}
 
-
+		if (requestCode == 0) {
+			if (resultCode == RESULT_OK) {
+				String contents = data.getStringExtra("SCAN_RESULT");
+				Log.d("QR-TAG", "contents: " + contents);
+			} else if (resultCode == RESULT_CANCELED) {
+				// Handle cancel
+				Log.d("QR-TAG", "RESULT_CANCELED");
+			}
 		}
 
 

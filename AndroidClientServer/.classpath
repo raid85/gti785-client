@@ -5,5 +5,12 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK/CaptureActivity">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="CaptureActivity"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="src" path="/CaptureActivity"/>
+	<classpathentry kind="lib" path="libs/core-3.1.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
