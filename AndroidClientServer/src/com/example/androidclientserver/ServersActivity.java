@@ -69,7 +69,7 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 		//Clean all data
 		dbHelper.deleteAllCountries();
 		//Add some data
-		dbHelper.insertSomeCountries();
+		//dbHelper.insertSomeCountries();
 
 		//Generate ListView from SQLite Database
 		displayListView();
@@ -103,7 +103,10 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 		btnRefresh.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {				
+			public void onClick(View arg0) {	
+				
+				dbHelper.insertDummyServer();
+				displayListView();
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"This will force List Update",
 						Toast.LENGTH_SHORT);

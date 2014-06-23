@@ -1137,9 +1137,10 @@ containing a value of this type.
         public static final int refresh_white=0x7f020078;
         public static final int server=0x7f020079;
         public static final int server_pressed=0x7f02007a;
-        public static final int share_via_barcode=0x7f02007b;
-        public static final int top_header=0x7f02007c;
-        public static final int tune_thumbnail=0x7f02007d;
+        public static final int shape=0x7f02007b;
+        public static final int share_via_barcode=0x7f02007c;
+        public static final int top_header=0x7f02007d;
+        public static final int tune_thumbnail=0x7f02007e;
     }
     public static final class id {
         public static final int action_bar=0x7f0a0023;

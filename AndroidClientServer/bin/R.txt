@@ -286,9 +286,10 @@ int drawable refresh 0x7f020077
 int drawable refresh_white 0x7f020078
 int drawable server 0x7f020079
 int drawable server_pressed 0x7f02007a
-int drawable share_via_barcode 0x7f02007b
-int drawable top_header 0x7f02007c
-int drawable tune_thumbnail 0x7f02007d
+int drawable shape 0x7f02007b
+int drawable share_via_barcode 0x7f02007c
+int drawable top_header 0x7f02007d
+int drawable tune_thumbnail 0x7f02007e
 int id action_bar 0x7f0a0023
 int id action_bar_activity_content 0x7f0a001c
 int id action_bar_container 0x7f0a0022

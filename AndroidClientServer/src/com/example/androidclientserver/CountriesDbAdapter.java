@@ -1,4 +1,6 @@
 package com.example.androidclientserver;
+import java.util.Random;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -138,5 +140,16 @@ public class CountriesDbAdapter {
   createCountry("AIA","Anguilla","North America","Caribbean");
  
  }
+ 
+ public void insertDummyServer() {
+	 
+	 	int Min = 0;
+	 	int Max = 1000;
+	 	int random;
+	 	random = Min + (int)(Math.random() * ((Max - Min) + 1));
+	  createCountry("SRV" + random,"SERVER" + random,"Asia","Southern and Central Asia");
+
+	 
+	 }
  
 }

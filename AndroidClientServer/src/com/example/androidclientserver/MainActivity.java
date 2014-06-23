@@ -80,8 +80,11 @@ public class MainActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View arg0) {				
-				Intent serverList  = new Intent(getApplicationContext(), AndroidListViewCursorAdaptorActivity.class);
-				startActivityForResult(serverList,0);
+				Toast toast = Toast.makeText(getApplicationContext(),
+		                "File Transfers Coming Soon",
+		                Toast.LENGTH_SHORT);
+		        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+		        toast.show();
 			}
 		});
 		
