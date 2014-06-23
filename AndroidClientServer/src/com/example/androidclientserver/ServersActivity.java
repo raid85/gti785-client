@@ -13,44 +13,44 @@ import com.google.zxing.client.android.CaptureActivity;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class ServersActivity extends Activity implements OnItemClickListener {
 
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 	private String mCurrentPhotoPath;
+	private String rawQRInfo = "No servers scanned !!!";
 	private ImageView mImageView ;
 	private ImageButton btnQR;
 	private ImageButton btnRefresh;
-
+	private CountriesDbAdapter dbHelper;
+	private SimpleCursorAdapter dataAdapter;
 	private ListView listView;
-	private List<RowItem> rowItems;
 
-	public static final String[] titles = new String[] { "Serveur Terra",
-		"Serveur Nostra", "Serveur Banshee", "Serveur Zeta" };
 
-	public static final String[] descriptions = new String[] {
-		"IP:185.156.22.125:8781",
-		"IP:185.156.22.126:8783", "IP:185.156.22.127:8788",
-	"IP:Unconfirmed:8X8X" };
 
 	public static final Integer[] images = { R.drawable.android60x60,
 		R.drawable.android60x60, R.drawable.android60x60, R.drawable.android60x60 };
-
 
 
 	/** Called when the activity is first created. */
@@ -61,6 +61,19 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 
 		btnQR = (ImageButton) findViewById(R.id.btnQR);
 		btnRefresh = (ImageButton) findViewById(R.id.btnRefresh);
+
+		//DATABASE STUFF
+		dbHelper = new CountriesDbAdapter(this);
+		dbHelper.open();
+
+		//Clean all data
+		dbHelper.deleteAllCountries();
+		//Add some data
+		dbHelper.insertSomeCountries();
+
+		//Generate ListView from SQLite Database
+		displayListView();
+
 
 		/**
 		 *bUTTON CLICK EVENt for starting camera
@@ -101,32 +114,18 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 		});
 
 
-		//------------LA LISTE DES SERVEURS----------//
-		rowItems = new ArrayList<RowItem>();
-		for (int i = 0; i < 4; i++) {
-			RowItem item = new RowItem(images[i], titles[i], descriptions[i]);
-			rowItems.add(item);
-			//Log.d("WOOOONALD", rowItems.get(i).getTitle());
-		}
-
-
-		listView = (ListView) findViewById(R.id.list);
-		CustomBaseAdapter adapter = new CustomBaseAdapter(this, rowItems);
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(this);
+		Toast toast = Toast.makeText(getApplicationContext(),
+				rawQRInfo,
+				Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.show();
 
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Toast toast = Toast.makeText(getApplicationContext(),
-				"Item " + (position + 1) + ": " + rowItems.get(position),
-				Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-		toast.show();
-
-
+		
 	}
 
 
@@ -157,14 +156,21 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
-			setPic();
-		}
+		//		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+		//			Bundle extras = data.getExtras();
+		//			setPic();
+		//		}
 
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
 				String contents = data.getStringExtra("SCAN_RESULT");
+
+				this.rawQRInfo = data.getStringExtra("SCAN_RESULT");
+				Toast toast = Toast.makeText(getApplicationContext(),
+						rawQRInfo,
+						Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+				toast.show();
 				Log.d("QR-TAG", "contents: " + contents);
 			} else if (resultCode == RESULT_CANCELED) {
 				// Handle cancel
@@ -222,4 +228,78 @@ public class ServersActivity extends Activity implements OnItemClickListener {
 		toast.show();
 
 	}
-}
+
+	private void displayListView() {
+
+		Cursor cursor = dbHelper.fetchAllCountries();
+
+		// The desired columns to be bound
+		String[] columns = new String[] {
+				CountriesDbAdapter.KEY_CODE,
+				CountriesDbAdapter.KEY_NAME,
+				CountriesDbAdapter.KEY_CONTINENT,
+				CountriesDbAdapter.KEY_REGION
+		};
+
+		// the XML defined views which the data will be bound to
+		int[] to = new int[] { 
+				R.id.code,
+				R.id.name,
+				R.id.continent,
+				R.id.region,
+		};
+
+		// create the adapter using the cursor pointing to the desired data 
+		//as well as the layout information
+		dataAdapter = new SimpleCursorAdapter(
+				this, R.layout.country_info, 
+				cursor, 
+				columns, 
+				to,
+				0);
+
+		  ListView listView = (ListView) findViewById(R.id.listView1);
+		  // Assign adapter to ListView
+		  listView.setAdapter(dataAdapter);
+		 
+		 
+		  listView.setOnItemClickListener(new OnItemClickListener() {
+		   @Override
+		   public void onItemClick(AdapterView<?> listView, View view, 
+		     int position, long id) {
+		   // Get the cursor, positioned to the corresponding row in the result set
+		   Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+		 
+		   // Get the state's capital from this row in the database.
+		   String countryCode = 
+		    cursor.getString(cursor.getColumnIndexOrThrow("code"));
+		   Toast.makeText(getApplicationContext(),
+		     countryCode, Toast.LENGTH_SHORT).show();
+		 
+		   }
+		  });
+		 
+		  EditText myFilter = (EditText) findViewById(R.id.myFilter);
+		  myFilter.addTextChangedListener(new TextWatcher() {
+		 
+		   public void afterTextChanged(Editable s) {
+		   }
+		 
+		   public void beforeTextChanged(CharSequence s, int start, 
+		     int count, int after) {
+		   }
+		 
+		   public void onTextChanged(CharSequence s, int start, 
+		     int before, int count) {
+		    dataAdapter.getFilter().filter(s.toString());
+		   }
+		  });
+		   
+		  dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+		         public Cursor runQuery(CharSequence constraint) {
+		             return dbHelper.fetchCountriesByName(constraint.toString());
+		         }
+		     });
+		 
+		 }
+		}

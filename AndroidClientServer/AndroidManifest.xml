@@ -49,6 +49,10 @@
             android:name="com.example.androidclientserver.ImageTextListBaseAdapterActivity"
             android:label="@string/title_activity_image_text_list_base_adapter" >
         </activity>
+        <activity
+            android:name="com.example.androidclientserver.AndroidListViewCursorAdaptorActivity"
+            android:label="@string/title_activity_android_list_view_cursor_adaptor" >
+        </activity>
     </application>
 
 </manifest>
